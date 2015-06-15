@@ -1,0 +1,32 @@
+---
+
+#- name: Get grafana deb
+#  shell: wget https://grafanarel.s3.amazonaws.com/builds/{{ grafana_deb }}
+#
+#- name: Install Grafana package
+#  sudo: True
+#  apt: pkg={{ item }} state=present
+#  with_items:
+#    - adduser
+#    - libfontconfig
+#
+#- name: Install Grafana
+#  sudo: True
+#  shell: sudo dpkg -i {{ grafana_deb }}
+
+- name: Configure Grafana
+  sudo: True
+  template:
+    src: grafana.ini.j2
+    dest: /etc/grafana/grafana.ini
+  notify:
+    - Restart grafana
+  tags:
+    - grafana_config
+
+- name: Make sure grafana service is enabled and running
+  sudo: True
+  service:
+    name: grafana-server
+    enabled: yes
+    state: running

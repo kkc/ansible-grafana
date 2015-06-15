@@ -6,6 +6,8 @@ grafana_pkg: grafana
 # Allow grafana to bind to TCP port <1024
 grafana_allow_low_port: false
 
+# .deb for Debian-based Linux
+grafana_deb: grafana_2.0.2_amd64.deb
 
 # Default environment
 grafana_app_mode: production
